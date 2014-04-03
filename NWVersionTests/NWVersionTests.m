@@ -188,4 +188,14 @@
     XCTAssertEqualObjects([version stringValue], original, @"");
 }
 
+- (void)testEncoding
+{
+    NWVersion *version = [NWVersion versionWithString:@"2.4.53.1"];
+    
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:version];
+    NWVersion *unarchived = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    
+    XCTAssertEqualObjects(version, unarchived, @"");
+}
+
 @end

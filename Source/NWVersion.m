@@ -233,4 +233,26 @@ static NSInteger *NWVersionParse(NSString *string, NSUInteger *size)
     return version;
 }
 
+#pragma mark NSCoding
+
++ (BOOL)supportsSecureCoding
+{
+    return YES;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder
+{
+    [aCoder encodeObject:[self stringValue] forKey:@"v"];
+}
+
+- (instancetype)initWithCoder:(NSCoder *)coder
+{
+    NSString *versionString = nil;
+    if ([coder respondsToSelector:@selector(decodeObjectOfClass:forKey:)])
+        versionString = [coder decodeObjectOfClass:[NSString class] forKey:@"v"];
+    else
+        versionString = [coder decodeObjectForKey:@"v"];
+    return [self initWithString:versionString];
+}
+
 @end
