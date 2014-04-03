@@ -8,7 +8,7 @@
 
 #import "NWVersion.h"
 
-static int *NWVersionParse(NSString *string, NSUInteger *size)
+static NSInteger *NWVersionParse(NSString *string, NSUInteger *size)
 {
     string = [string copy];
     if (string.length == 0)
@@ -22,21 +22,21 @@ static int *NWVersionParse(NSString *string, NSUInteger *size)
     NSUInteger count = 0;
     while ([scanner isAtEnd] == NO)
     {
-        int value = 0;
-        if ([scanner scanInt:&value] == NO)
+        NSInteger value = 0;
+        if ([scanner scanInteger:&value] == NO)
             return NULL;
         
-        NSCAssert(value != INT_MIN && value != INT_MAX, @"Component in string underflowed/overflowed");
+        NSCAssert(value != NSIntegerMin && value != NSIntegerMax, @"Component in string underflowed/overflowed");
         
         count++;
     }
     
     scanner.scanLocation = 0; // Reset to the beginning
     
-    int *components = calloc(count, sizeof(int));
+    NSInteger *components = calloc(count, sizeof(NSInteger));
     for (NSUInteger i = 0; i < count; i++)
     {
-        [scanner scanInt:&components[i]];
+        [scanner scanInteger:&components[i]];
     }
     
     if (size != NULL)
@@ -58,7 +58,7 @@ static int *NWVersionParse(NSString *string, NSUInteger *size)
     if (self)
     {
         NSUInteger size = 0;
-        int *components = NWVersionParse(string, &size);
+        NSInteger *components = NWVersionParse(string, &size);
         if (components == NULL)
             return nil;
         
@@ -78,6 +78,16 @@ static int *NWVersionParse(NSString *string, NSUInteger *size)
 - (NSUInteger)length
 {
     return self->_size;
+}
+
+- (NSInteger)componentAtIndex:(NSUInteger)index
+{
+    NSUInteger length = self.length;
+    if (index >= length)
+        [NSException raise:NSRangeException
+                    format:@"*** -[NWVersion componentAtIndex:]: index %lu is beyond bounds [0 .. %lu]", (unsigned long)index, (unsigned long)length];
+    
+    return self->_components[index];
 }
 
 @end

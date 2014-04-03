@@ -11,12 +11,14 @@
 @interface NWVersion : NSObject {
   @private
     NSUInteger _size;
-    int *_components;
+    NSInteger *_components;
 }
 
 + (instancetype)versionWithString:(NSString *)string;
 - (instancetype)initWithString:(NSString *)string;
 
 @property (nonatomic, readonly) NSUInteger length;
+
+- (NSInteger)componentAtIndex:(NSUInteger)index;
 
 @end
