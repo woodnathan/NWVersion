@@ -73,6 +73,13 @@
  */
 - (NSComparisonResult)compare:(NWVersion *)version;
 
+/**
+ *  Returns a Boolean value that indicates whether the receiver and a given version are equal.
+ *
+ *  @param version The version with which to compare the receiver.
+ *
+ *  @return YES if the receiver and version are equal, otherwise NO.
+ */
 - (BOOL)isEqualToVersion:(NWVersion *)version;
 
 @end
