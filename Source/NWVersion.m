@@ -90,4 +90,9 @@ static NSInteger *NWVersionParse(NSString *string, NSUInteger *size)
     return self->_components[index];
 }
 
+- (NSNumber *)objectAtIndexedSubscript:(NSUInteger)idx
+{
+    return [NSNumber numberWithInteger:[self componentAtIndex:idx]];
+}
+
 @end

@@ -42,4 +42,25 @@
     XCTAssertEqual([v componentAtIndex:3], (NSInteger)4, @"");
 }
 
+- (void)testSubscriptRangeException
+{
+    NWVersion *v = [NWVersion versionWithString:@"1.1"];
+    XCTAssertThrows(v[2], @"");
+}
+
+- (void)testSubscriptComponentAccess
+{
+    NWVersion *v = [NWVersion versionWithString:@"1.2.3.4"];
+    XCTAssertEqualObjects(v[0], @((NSInteger)1), @"");
+    XCTAssertEqualObjects(v[1], @((NSInteger)2), @"");
+    XCTAssertEqualObjects(v[2], @((NSInteger)3), @"");
+    XCTAssertEqualObjects(v[3], @((NSInteger)4), @"");
+}
+
+- (void)testOverflow
+{
+    NSString *vString = @"42949672964294967296.42949672964294967296";
+    XCTAssertThrows([NWVersion versionWithString:vString], @"");
+}
+
 @end
