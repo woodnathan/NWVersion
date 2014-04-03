@@ -155,4 +155,14 @@
     XCTAssertNotEqual([v2 hash], [v3 hash], @"");
 }
 
+- (void)testCopying
+{
+    NWVersion *v1 = [NWVersion versionWithString:@"2.0"];
+    NWVersion *v2 = [v1 copy];
+    
+    XCTAssertNotEqual(v1, v2, @"");
+    XCTAssertTrue([v1 isEqualToVersion:v2], @"");
+    XCTAssertEqualObjects(v1, v2, @"");
+}
+
 @end

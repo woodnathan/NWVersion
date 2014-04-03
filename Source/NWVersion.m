@@ -189,4 +189,20 @@ static NSInteger *NWVersionParse(NSString *string, NSUInteger *size)
     return result;
 }
 
+#pragma mark - NSCopying
+
+- (id)copyWithZone:(NSZone *)zone
+{
+    NWVersion *version = [[self class] allocWithZone:zone];
+    
+    version->_size = self->_size;
+    
+    const size_t size = self->_size * sizeof(NSInteger);
+    NSInteger *components = malloc(size);
+    memcpy(components, self->_components, size);
+    version->_components = components;
+    
+    return version;
+}
+
 @end

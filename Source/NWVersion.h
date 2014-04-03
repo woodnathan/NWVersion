@@ -11,7 +11,7 @@
 /**
  *  A simple class to help with version strings of abitrary length
  */
-@interface NWVersion : NSObject {
+@interface NWVersion : NSObject <NSCopying> {
   @private
     NSUInteger _size; // The length of the components array
     NSInteger *_components; // An array of each component
