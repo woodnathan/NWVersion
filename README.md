@@ -1,19 +1,9 @@
-NWPromise
+NWVersion
 ============
 
-An Objective-C promise library with support for NSOperation implemented as a DSL
+A simple class to handle multi-component version strings
 
 ### Example
 ```
-NWPromise *p = [NWPromise promise];
-p.done(^(NSString *result) {
-	NSLog(@"Result: %@", result);
-});
-
-[p resolve:@"Example string"];
+NWVersion *version = [NWVersion versionWithString:@"2.5.3"];
 ```
-
-### Todo
-- Documentation
-- Review Threading
-- NSOperation only supports resolution at the moment
