@@ -119,4 +119,30 @@
     XCTAssertEqual([version compare:version], NSOrderedSame, @"");
 }
 
+- (void)testValidEquality
+{
+    NWVersion *v1 = [NWVersion versionWithString:@"2.0"];
+    NWVersion *v2 = [NWVersion versionWithString:@"2.0"];
+    
+    XCTAssertTrue([v1 isEqual:v2], @"");
+    XCTAssertTrue([v1 isEqualToVersion:v2], @"");
+}
+
+- (void)testValidInequality
+{
+    NWVersion *v1 = [NWVersion versionWithString:@"2.0"];
+    NWVersion *v2 = [NWVersion versionWithString:@"2.0.0"];
+    
+    XCTAssertFalse([v1 isEqual:v2], @"");
+    XCTAssertFalse([v1 isEqualToVersion:v2], @"");
+}
+
+- (void)testNilEquality
+{
+    NWVersion *v1 = [NWVersion versionWithString:@"2.0"];
+    
+    XCTAssertFalse([v1 isEqual:nil], @"");
+    XCTAssertFalse([v1 isEqualToVersion:nil], @"");
+}
+
 @end

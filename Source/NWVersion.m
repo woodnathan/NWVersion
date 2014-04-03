@@ -140,4 +140,34 @@ static NSInteger *NWVersionParse(NSString *string, NSUInteger *size)
     return NSOrderedDescending;
 }
 
+#pragma mark Equality
+
+- (BOOL)isEqual:(id)object
+{
+    if (object == self)
+        return YES;
+    
+    if ([object isKindOfClass:[NWVersion class]] == NO)
+        return NO;
+    
+    return [self isEqualToVersion:object];
+}
+
+- (BOOL)isEqualToVersion:(NWVersion *)version
+{
+    NSUInteger length = self.length;
+    if (version == nil || version.length != length)
+        return NO;
+    
+    NSInteger *const comps1 = self->_components;
+    NSInteger *const comps2 = version->_components;
+    for (NSUInteger i = 0; i < length; i++)
+    {
+        if (comps1[i] != comps2[i])
+            return NO;
+    }
+    
+    return YES;
+}
+
 @end

@@ -73,4 +73,6 @@
  */
 - (NSComparisonResult)compare:(NWVersion *)version;
 
+- (BOOL)isEqualToVersion:(NWVersion *)version;
+
 @end
