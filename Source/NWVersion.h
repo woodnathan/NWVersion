@@ -59,6 +59,13 @@
 @property (nonatomic, readonly) NSUInteger length;
 
 /**
+ *  Produces a string representation of the version object
+ *
+ *  @return A version string
+ */
+- (NSString *)stringValue;
+
+/**
  *  Gets the component at the specified index
  *
  *  @param index The index of the component to get

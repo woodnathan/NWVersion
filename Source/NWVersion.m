@@ -95,6 +95,19 @@ static NSInteger *NWVersionParse(NSString *string, NSUInteger *size)
     return self->_size;
 }
 
+- (NSString *)stringValue
+{
+    NSUInteger length = self.length;
+    
+    NSMutableArray *compValues = [[NSMutableArray alloc] initWithCapacity:length];
+    
+    NSInteger *comps = self->_components;
+    for (NSUInteger i = 0; i < length; i++)
+        [compValues addObject:[NSNumber numberWithInteger:comps[i]]];
+    
+    return [compValues componentsJoinedByString:@"."];
+}
+
 - (NSInteger)componentAtIndex:(NSUInteger)index
 {
     NSUInteger length = self.length;
@@ -204,7 +217,7 @@ static NSInteger *NWVersionParse(NSString *string, NSUInteger *size)
     return result;
 }
 
-#pragma mark - NSCopying
+#pragma mark NSCopying
 
 - (id)copyWithZone:(NSZone *)zone
 {

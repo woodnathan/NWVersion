@@ -180,4 +180,12 @@
     XCTAssertEqualObjects(v1, v2, @"");
 }
 
+- (void)testStringValue
+{
+    NSString *original = @"2.4.53.1";
+    NWVersion *version = [NWVersion versionWithString:original];
+    
+    XCTAssertEqualObjects([version stringValue], original, @"");
+}
+
 @end
