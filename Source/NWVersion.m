@@ -159,8 +159,8 @@ static NSInteger *NWVersionParse(NSString *string, NSUInteger *size)
     if (version == nil || version.length != length)
         return NO;
     
-    NSInteger *const comps1 = self->_components;
-    NSInteger *const comps2 = version->_components;
+    NSInteger *comps1 = self->_components;
+    NSInteger *comps2 = version->_components;
     for (NSUInteger i = 0; i < length; i++)
     {
         if (comps1[i] != comps2[i])
@@ -168,6 +168,25 @@ static NSInteger *NWVersionParse(NSString *string, NSUInteger *size)
     }
     
     return YES;
+}
+
+#pragma mark Identity
+
+- (NSUInteger)hash
+{
+    // This needs to be looked at more
+    // Not a guaranteed hashing method
+    // Might be better to pass into an NSIndexPath
+    
+    NSUInteger prime = 23;
+    NSUInteger result = 1;
+    
+    NSUInteger length = self.length;
+    NSInteger *comps = self->_components;
+    for (NSUInteger i = 0; i < length; i++)
+        result = prime * result + comps[i];
+    
+    return result;
 }
 
 @end

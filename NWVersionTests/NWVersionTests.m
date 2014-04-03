@@ -145,4 +145,14 @@
     XCTAssertFalse([v1 isEqualToVersion:nil], @"");
 }
 
+- (void)testHashing
+{
+    NWVersion *v1 = [NWVersion versionWithString:@"2.0"];
+    NWVersion *v2 = [NWVersion versionWithString:@"2.0"];
+    NWVersion *v3 = [NWVersion versionWithString:@"1.0"];
+    
+    XCTAssertEqual([v1 hash], [v2 hash], @"");
+    XCTAssertNotEqual([v2 hash], [v3 hash], @"");
+}
+
 @end
