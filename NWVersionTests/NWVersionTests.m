@@ -63,4 +63,60 @@
     XCTAssertThrows([NWVersion versionWithString:vString], @"");
 }
 
+- (void)testSameComparison
+{
+    NWVersion *v1 = [NWVersion versionWithString:@"1.0"];
+    NWVersion *v2 = [NWVersion versionWithString:@"1.0"];
+    
+    XCTAssertEqual([v1 compare:v2], NSOrderedSame, @"");
+}
+
+- (void)testDescendingEqualLengthComparison
+{
+    NWVersion *v1 = [NWVersion versionWithString:@"2.0"];
+    NWVersion *v2 = [NWVersion versionWithString:@"1.0"];
+    
+    XCTAssertEqual([v1 compare:v2], NSOrderedDescending, @"");
+}
+
+- (void)testAscendingEqualLengthComparison
+{
+    NWVersion *v1 = [NWVersion versionWithString:@"1.0"];
+    NWVersion *v2 = [NWVersion versionWithString:@"2.0"];
+    
+    XCTAssertEqual([v1 compare:v2], NSOrderedAscending, @"");
+}
+
+- (void)testDescendingVariableLengthComparison
+{
+    NWVersion *v1 = [NWVersion versionWithString:@"2.0.1"];
+    NWVersion *v2 = [NWVersion versionWithString:@"2.0"];
+    
+    XCTAssertEqual([v1 compare:v2], NSOrderedDescending, @"");
+    
+    NWVersion *v3 = [NWVersion versionWithString:@"2.0.0.1"];
+    NWVersion *v4 = [NWVersion versionWithString:@"2.0"];
+    
+    XCTAssertEqual([v3 compare:v4], NSOrderedDescending, @"");
+}
+
+- (void)testAscendingVariableLengthComparison
+{
+    NWVersion *v1 = [NWVersion versionWithString:@"2.0"];
+    NWVersion *v2 = [NWVersion versionWithString:@"2.0.1"];
+    
+    XCTAssertEqual([v1 compare:v2], NSOrderedAscending, @"");
+    
+    NWVersion *v3 = [NWVersion versionWithString:@"2.0"];
+    NWVersion *v4 = [NWVersion versionWithString:@"2.0.0.1"];
+    
+    XCTAssertEqual([v3 compare:v4], NSOrderedAscending, @"");
+}
+
+- (void)testSameObjectComparison
+{
+    NWVersion *version = [NWVersion versionWithString:@"2.0"];
+    XCTAssertEqual([version compare:version], NSOrderedSame, @"");
+}
+
 @end

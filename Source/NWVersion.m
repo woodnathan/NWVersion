@@ -95,4 +95,49 @@ static NSInteger *NWVersionParse(NSString *string, NSUInteger *size)
     return [NSNumber numberWithInteger:[self componentAtIndex:idx]];
 }
 
+#pragma mark Comparison
+
+- (NSComparisonResult)compare:(NWVersion *)version
+{
+    if (version == nil)
+        return NSOrderedDescending;
+    else
+        if (version == self)
+            return NSOrderedSame;
+    
+    const NSUInteger len1 = self.length;
+    const NSUInteger len2 = version.length;
+    
+    NSInteger *const comps1 = self->_components;
+    NSInteger *const comps2 = version->_components;
+    
+    const NSUInteger len = MIN(len1, len2);
+    
+    // Walk along the minimum number of components
+    //   comparing each component as we go
+    for (NSUInteger i = 0; i < len; i++)
+    {
+        if (comps1[i] < comps2[i])
+            return NSOrderedAscending;
+        else
+            if (comps1[i] > comps2[i])
+                return NSOrderedDescending;
+    }
+    
+    // The minimum matching components are equal
+    // ie. [@"2.0" compare:@"2.0.1"]
+    // If their lengths are equal, and they're
+    //   components match, they're comparatively the same
+    // Eg. [@"2.0" compare:@"2.0"]
+    if (len1 == len2)
+        return NSOrderedSame;
+    
+    // [@"2.0" compare:@"2.0.1"]
+    if (len1 < len2)
+        return NSOrderedAscending;
+    
+    // [@"2.0.1" compare:@"2.0"]
+    return NSOrderedDescending;
+}
+
 @end

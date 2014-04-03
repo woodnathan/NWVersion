@@ -51,6 +51,26 @@
  *  @return The value at the index
  */
 - (NSInteger)componentAtIndex:(NSUInteger)index;
+
+/**
+ *  Gets the component at the specified index
+ *
+ *  @param index The index of the component to get
+ *
+ *  @return An NSNumber of the value at the index
+ */
 - (NSNumber *)objectAtIndexedSubscript:(NSUInteger)idx;
+
+/**
+ *  Returns an NSComparisonResult value that indicates whether the
+ *  receiver is greater than, equal to, or less than a given version object.
+ *
+ *  @param version The number with which to compare the receiver.
+ *                 This value must not be nil. If the value is nil, the behavior
+ *                 is undefined and may change in the future.
+ *
+ *  @return NSOrderedAscending if the value of version is greater than the receiver’s, NSOrderedSame if they’re equal, and NSOrderedDescending if the value of version is less than the receiver’s.
+ */
+- (NSComparisonResult)compare:(NWVersion *)version;
 
 @end
